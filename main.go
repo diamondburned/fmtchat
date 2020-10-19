@@ -20,6 +20,7 @@ var funcs = template.FuncMap{}
 
 // Flags.
 var (
+	columns   = uint(80)
 	limit     = uint(100)
 	channelID = uint64(0)
 	beforeID  = uint64(0)
@@ -27,6 +28,7 @@ var (
 )
 
 func init() {
+	flag.UintVar(&columns, "cols", columns, "maximum width per column before wrapping")
 	flag.UintVar(&limit, "l", limit, "maximum number of messages to fetch")
 	flag.Uint64Var(&channelID, "channelID", 0, "channel ID")
 	flag.Uint64Var(&beforeID, "beforeID", 0, "message to fetch before, optional")

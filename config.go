@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/diamondburned/arikawa/discord"
+	"github.com/mitchellh/go-wordwrap"
 )
 
 var messageColumns = []string{
@@ -34,7 +35,12 @@ func (m Message) SplitContent(indentLevels ...int) string {
 		indentLevels = []int{0}
 	}
 
-	var lines = strings.Split(m.Content, "\n")
+	var content = m.Content
+	if columns > 0 {
+		content = wordwrap.WrapString(content, columns)
+	}
+
+	var lines = strings.Split(content, "\n")
 	for i, line := range lines {
 		var ilevel int
 		if i < len(indentLevels) {
